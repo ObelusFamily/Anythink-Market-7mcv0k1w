@@ -150,12 +150,15 @@ jobs:
       - name: Set the image tag
         run: echo IMAGE_TAG=${GITHUB_REPOSITORY/\//-}-latest >> $GITHUB_ENV
 
+      - name: mkdir
+        run: |
+          mkdir manifests
       - name: bake
         run: |
           helm template --install --timeout 10m anythink-market ./charts/ \
               --set clusterEnv=${{ secrets.CLUSTER_ENV }} \
               --set frontend.image.tag=${{ env.IMAGE_TAG }} \
-              --set backend.image.tag=${{ env.IMAGE_TAG }}
+              --set backend.image.tag=${{ env.IMAGE_TAG }} > manifests/anythink.yml
 
       - name: Deploy
         uses: armory/cli-deploy-action@main
