@@ -152,14 +152,14 @@ jobs:
 
       - name: get repo name
         id: getrepo
-        run: echo "${{github.repository}}" | tr '[:upper:]'  '[:lower:]' | cut -d '/' -f2
+        run: echo REPO_NAME=`echo "${{github.repository}}" | tr '[:upper:]'  '[:lower:]' | cut -d '/' -f2`
         
       - name: update namespace
         uses: mikefarah/yq@master
-        with:
+        with: #${{ steps.getrepo.outputs.stdout }}
           cmd: |
             yq -i '
-            .targets.staging.namespace = "${{ steps.getrepo.outputs.stdout }}"
+            .targets.staging.namespace = "${{ env.REPO_NAME }}"
             ' 'armory-deploy.yml'
 
       - name: mkdir
