@@ -158,7 +158,7 @@ jobs:
         with:
           cmd: |
             yq -i '
-            .targets.staging.namespace = "${{ ${{ steps.getrepo.outputs.stdout }} }}"
+            .targets.staging.namespace = "${{ steps.getrepo.outputs.stdout }}"
             ' 'armory-deploy.yml'
 
       - name: mkdir
