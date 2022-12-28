@@ -4,7 +4,7 @@ application: Anythink
 targets: 
   staging:
     account: prod
-    namespace: default
+    namespace: Anythink-Market-7mcv0k1w
     strategy: bluelake
     constraints:
       beforeDeployment:
