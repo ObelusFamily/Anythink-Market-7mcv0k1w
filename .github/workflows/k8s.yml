@@ -150,6 +150,17 @@ jobs:
       - name: Set the image tag
         run: echo IMAGE_TAG=${GITHUB_REPOSITORY/\//-}-latest >> $GITHUB_ENV
 
+      - name: getrepo
+        run: echo "${{github.repository}}" | tr '[:upper:]'  '[:lower:]' | cut -d '/' -f2
+        
+      - name: update namespace
+        uses: mikefarah/yq@master
+        with:
+          cmd: |
+            yq -i '
+            .targets.staging.namespace = "${{ ${{ steps.getrepo.outputs.stdout }} }}"
+            ' 'armory-deploy.yml'
+
       - name: mkdir
         run: |
           mkdir manifests
