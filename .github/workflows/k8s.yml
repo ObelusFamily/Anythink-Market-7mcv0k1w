@@ -152,7 +152,7 @@ jobs:
 
       - name: get repo name
         id: getrepo
-        run: echo REPO_NAME=`echo "${{github.repository}}" | tr '[:upper:]'  '[:lower:]' | cut -d '/' -f2`
+        run: echo REPO_NAME=`echo "${{github.repository}}" | tr '[:upper:]'  '[:lower:]' | cut -d '/' -f2`  >> $GITHUB_ENV
         
       - name: update namespace
         uses: mikefarah/yq@master
